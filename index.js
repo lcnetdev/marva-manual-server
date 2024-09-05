@@ -12,6 +12,7 @@ const converter = new showdown.Converter();
 let GIT_REPO_NAME = null
 let GIT_REPO = null
 let BUILD_ACCESS_TOKEN = null
+let URL_PATH_PREFIX = ""
 
 if (process.env.GIT_REPO_NAME){
     GIT_REPO_NAME = process.env.GIT_REPO_NAME
@@ -22,7 +23,9 @@ if (process.env.GIT_REPO){
 if (process.env.BUILD_ACCESS_TOKEN){
     BUILD_ACCESS_TOKEN = process.env.BUILD_ACCESS_TOKEN
 }
-
+if (process.env.URL_PATH_PREFIX){
+    URL_PATH_PREFIX = process.env.URL_PATH_PREFIX
+}
 
 let currentlyBuilding = false
 let currentlyBuildingQueue = []
@@ -34,11 +37,11 @@ let footer_html = fsAsync.readFileSync('templates/footer.html',{ encoding: 'utf8
 
 fastify.register(require('@fastify/static'), {
   root: path.join(__dirname, 'app/manual'),
-  prefix: '/', // optional: default '/'
+  prefix: `${URL_PATH_PREFIX}/`, // optional: default '/'
 //   constraints: { host: 'example.com' } // optional: default {}
 })
 
-fastify.get('/build', function (req, reply) {
+fastify.get(`${URL_PATH_PREFIX}/build`, function (req, reply) {
 
 
     if (BUILD_ACCESS_TOKEN){
