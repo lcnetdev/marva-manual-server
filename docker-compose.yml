@@ -1,0 +1,24 @@
+# Use root/example as user/password credentials
+version: '3'
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+      - ./data:/data
+    working_dir: /app
+    restart: always
+
+    environment:
+      NODE_ENV: development
+      GIT_REPO: "https://"
+      GIT_REPO_NAME: "xxxxxx"
+      BUILD_ACCESS_TOKEN: "xxxxx"
+
+    ports:
+      - 6565:6565
+    command: npm run dev

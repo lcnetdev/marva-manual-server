@@ -1,0 +1,26 @@
+{
+  "name": "marva-manual-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm install && nodemon --ignore 'tmp/*' ./index.js",
+    "start": "forever ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcnetdev/marva-manual-server.git"
+  },
+  
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lcnetdev/marva-manual-server/issues"
+  },
+  "homepage": "https://github.com/lcnetdev/marva-manual-server#readme",
+  "dependencies": {
+    "@fastify/static": "^7.0.4",
+    "fastify": "^4.28.1",
+    "showdown": "^2.1.0"
+  }
+}
