@@ -41,8 +41,7 @@ fastify.register(require('@fastify/static'), {
 //   constraints: { host: 'example.com' } // optional: default {}
 })
 
-fastify.get(`${URL_PATH_PREFIX}/build`, function (req, reply) {
-
+fastify.post(`${URL_PATH_PREFIX}/build`, function (req, reply) {
 
     if (BUILD_ACCESS_TOKEN){
         console.log(req.headers)

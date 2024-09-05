@@ -18,7 +18,7 @@ services:
       GIT_REPO: "https://"
       GIT_REPO_NAME: "xxxxxx"
       BUILD_ACCESS_TOKEN: "xxxxx"
-      URL_PATH_PREFIX: "marva-manual"
+      URL_PATH_PREFIX: "/marva-manual"
 
     ports:
       - 6565:6565
