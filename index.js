@@ -106,7 +106,7 @@ let convertDir = async function(path){
                 useName = 'index.html'
             }
             fsAsync.writeFileSync(base_path + '/' + useName, `${header_html}\n\n${generatedHtml}\n\n${footer_html}`);
-        }else if (dirent.name.toLowerCase().endsWith(".png") || dirent.name.toLowerCase().endsWith(".jpg")){
+        }else if (dirent.name.toLowerCase().endsWith(".png") || dirent.name.toLowerCase().endsWith(".jpg") || dirent.name.toLowerCase().endsWith(".gif")){
             fs.copyFile(thisFilePath,base_path + '/' + dirent.name )
         }
     } 
