@@ -19,6 +19,16 @@ services:
       GIT_REPO_NAME: "xxxxxx"
       BUILD_ACCESS_TOKEN: "xxxxx"
       URL_PATH_PREFIX: "/marva-manual"
+      PATH_TO_MENU_TEMPLATE: "menu-breadcrumbs.md"
+    
+    # development settings
+    # environment:
+    #   NODE_ENV: development
+    #   URL_PATH_PREFIX: "/marva-manual"
+    #   GIT_REPO_NAME: "temp-git-test"
+    #   PATH_TO_MENU_TEMPLATE: "menu-breadcrumbs.md"
+
+
 
     ports:
       - 6565:6565

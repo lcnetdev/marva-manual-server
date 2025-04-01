@@ -26,7 +26,9 @@ if (process.env.BUILD_ACCESS_TOKEN){
 if (process.env.URL_PATH_PREFIX){
     URL_PATH_PREFIX = process.env.URL_PATH_PREFIX
 }
-
+if (process.env.PATH_TO_MENU_TEMPLATE){
+    PATH_TO_MENU_TEMPLATE = process.env.PATH_TO_MENU_TEMPLATE
+}
 let currentlyBuilding = false
 let currentlyBuildingQueue = []
 
@@ -90,6 +92,17 @@ let convertDir = async function(path){
     if (!fsAsync.existsSync(base_path)){
         fs.mkdir(base_path, { recursive: true });
     }
+    let menuHtml = ""
+    if (PATH_TO_MENU_TEMPLATE){
+        // A menu template was provided, so we need render it an add it to all the files
+        let menuMd = `data/${GIT_REPO_NAME}/${PATH_TO_MENU_TEMPLATE}`
+        menuHtml = '<div class="menu">MENU TEMPLATE NOT FOUND!</div>'
+        if (fsAsync.existsSync(menuMd)){
+            let markdownText = fsAsync.readFileSync(menuMd,{ encoding: 'utf8' });
+            let generatedHtml  = converter.makeHtml(markdownText);      
+            menuHtml = `<div class="menu">${generatedHtml}</div>`
+        }        
+    }
 
     for await (const dirent of dir) {
 
@@ -105,7 +118,7 @@ let convertDir = async function(path){
             if (dirent.name.toLocaleLowerCase() == 'readme.md'){
                 useName = 'index.html'
             }
-            fsAsync.writeFileSync(base_path + '/' + useName, `${header_html}\n\n${generatedHtml}\n\n${footer_html}`);
+            fsAsync.writeFileSync(base_path + '/' + useName, `${header_html}\n\n${menuHtml}${generatedHtml}\n\n${footer_html}`);
         }else if (dirent.name.toLowerCase().endsWith(".png") || dirent.name.toLowerCase().endsWith(".jpg") || dirent.name.toLowerCase().endsWith(".gif")){
             fs.copyFile(thisFilePath,base_path + '/' + dirent.name )
         }
